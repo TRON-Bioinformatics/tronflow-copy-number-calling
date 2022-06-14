@@ -2,3 +2,4 @@
 venv
 work
 .nextflow*
+output
