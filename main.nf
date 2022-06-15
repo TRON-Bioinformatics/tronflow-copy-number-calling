@@ -32,11 +32,12 @@ else {
   Channel
     .fromPath(params.input_files)
     .splitCsv(header: ['name', 'tumor_bam', 'normal_bam'], sep: "\t")
-    .map{ row-> tuple([id: row.name], file(row.tumor_bam), file(row.normal_bam)) }
+    .map{ row-> tuple([id: row.name], row.tumor_bam? file(row.tumor_bam, checkIfExists: true) : [], file(row.normal_bam, checkIfExists: true)) }
     .set { input_files }
 }
 
 
 workflow {
+    // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
     CNVKIT_BATCH(input_files, params.reference, [], params.intervals, [])
 }
