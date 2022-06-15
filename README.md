@@ -11,6 +11,7 @@ Find the documentation here [![Documentation Status](https://readthedocs.org/pro
 
 
 This workflow implements the CNVkit (Talevich, 2016) somatic copy number calling over tumor-normal pairs.
+It reuses the modular Nextflow implementation of CNVkit from NF-core (Ewels, 2020).
 
 
 ## How to run it
@@ -73,5 +74,6 @@ Multiple tumor or normal BAMs can be provided separated by commas.
 
 ## References
 
+- Ewels, P. A., Peltzer, A., Fillinger, S., Patel, H., Alneberg, J., Wilm, A., Garcia, M. U., Tommaso, P. Di, & Nahnsen, S. (2020). The nf-core framework for community-curated bioinformatics pipelines. Nature Biotechnology 2020 38:3, 38(3), 276–278. https://doi.org/10.1038/s41587-020-0439-x
 - Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). Nextflow enables reproducible computational workflows. Nature Biotechnology, 35(4), 316–319. https://doi.org/10.1038/nbt.3820
 - Talevich, E., Shain, A. H., Botton, T., & Bastian, B. C. (2016). CNVkit: Genome-Wide Copy Number Detection and Visualization from Targeted DNA Sequencing. PLOS Computational Biology, 12(4), e1004873. https://doi.org/10.1371/JOURNAL.PCBI.1004873
