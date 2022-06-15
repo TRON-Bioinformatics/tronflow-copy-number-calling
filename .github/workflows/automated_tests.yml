@@ -8,6 +8,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: 'true'
     - uses: actions/setup-java@v2
       with:
         distribution: 'zulu' # See 'Supported distributions' for available options
