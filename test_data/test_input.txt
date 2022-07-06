@@ -1,1 +1,1 @@
-sample1	/home/priesgo/src/tronflow-cnvkit/test_data/TESTX_S1_L001.bam	/home/priesgo/src/tronflow-cnvkit/test_data/TESTX_S1_L003.bam
+sample1	/home/priesgo/src/tronflow-cnvkit/test_data/SRR8244836.preprocessed.only_mapped.bam	/home/priesgo/src/tronflow-cnvkit/test_data/SRR8244887.preprocessed.only_mapped.bam

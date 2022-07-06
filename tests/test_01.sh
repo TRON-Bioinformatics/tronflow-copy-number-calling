@@ -14,3 +14,4 @@ test -s $output/minimal_intervals.antitarget.bed || { echo "Missing output antit
 
 # Sequenza output
 test -s $output/sample1.gz || { echo "Missing output sequenza SEQZ!"; exit 1; }
+test -s $output/sample1.binned.gz || { echo "Missing output sequenza binned SEQZ!"; exit 1; }

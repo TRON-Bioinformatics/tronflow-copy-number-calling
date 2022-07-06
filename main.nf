@@ -6,6 +6,7 @@ nextflow.enable.dsl = 2
 include { CNVKIT_BATCH } from './modules/modules/cnvkit/batch/main'
 include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/sequenzautils/gcwiggle/main'
 include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/sequenzautils/bam2seqz/main'
+include { SEQUENZAUTILS_SEQZBINNING } from './local_modules/sequenza_seqzbinning'
 
 params.help= false
 params.input_files = false
@@ -84,4 +85,6 @@ workflow {
     wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
 
     SEQUENZAUTILS_BAM2SEQZ(merged_bams, params.reference, wig)
+
+    SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
 }
