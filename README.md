@@ -1,7 +1,7 @@
 # TronFlow Copy Number caller
 
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/release/tron-bioinformatics/tronflow-copy-number-caller?sort=semver)
-[![Run tests](https://github.com/TRON-Bioinformatics/tronflow-copy-number-caller/actions/workflows/automated_tests.yml/badge.svg?branch=master)](https://github.com/TRON-Bioinformatics/tronflow-copy-number-caller/actions/workflows/automated_tests.yml)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/release/tron-bioinformatics/tronflow-copy-number-calling?sort=semver)
+[![Run tests](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/actions/workflows/automated_tests.yml/badge.svg?branch=master)](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/actions/workflows/automated_tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Powered by Nextflow](https://img.shields.io/badge/powered%20by-Nextflow-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://www.nextflow.io/)
 
