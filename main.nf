@@ -6,13 +6,15 @@ nextflow.enable.dsl = 2
 include { CNVKIT_BATCH } from './modules/modules/cnvkit/batch/main'
 include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/sequenzautils/gcwiggle/main'
 include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/sequenzautils/bam2seqz/main'
-include { SEQUENZAUTILS_SEQZBINNING } from './local_modules/sequenza_seqzbinning'
+include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
 
 params.help= false
 params.input_files = false
 params.reference = false
 params.intervals = false
 params.output = 'output'
+params.skip_sequenza = false
+params.skip_cnvkit = false
 
 
 def helpMessage() {
@@ -78,13 +80,19 @@ workflow {
     MERGE_REPLICATES(input_files)
     merged_bams = MERGE_REPLICATES.out.merged_bams
 
-    // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
-    CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [])
+    if (!params.skip_cnvkit) {
+        // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
+        CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [])
+    }
 
-    SEQUENZAUTILS_GCWIGGLE([[id:'reference'], params.reference])
-    wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
+    if (!params.skip_sequenza) {
+        SEQUENZAUTILS_GCWIGGLE([[id:'reference'], params.reference])
+        wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
 
-    SEQUENZAUTILS_BAM2SEQZ(merged_bams, params.reference, wig)
+        SEQUENZAUTILS_BAM2SEQZ(merged_bams, params.reference, wig)
 
-    SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
+        SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
+
+        SEQUENZA_R(SEQUENZAUTILS_SEQZBINNING.out.seqz)
+    }
 }

@@ -1,17 +1,17 @@
-# TronFlow CNVkit
+# TronFlow Copy Number caller
 
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/release/tron-bioinformatics/tronflow-cnvkit?sort=semver)
-[![Run tests](https://github.com/TRON-Bioinformatics/tronflow-cnvkit/actions/workflows/automated_tests.yml/badge.svg?branch=master)](https://github.com/TRON-Bioinformatics/tronflow-cnvkit/actions/workflows/automated_tests.yml)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/release/tron-bioinformatics/tronflow-copy-number-caller?sort=semver)
+[![Run tests](https://github.com/TRON-Bioinformatics/tronflow-copy-number-caller/actions/workflows/automated_tests.yml/badge.svg?branch=master)](https://github.com/TRON-Bioinformatics/tronflow-copy-number-caller/actions/workflows/automated_tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Powered by Nextflow](https://img.shields.io/badge/powered%20by-Nextflow-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://www.nextflow.io/)
 
-The TronFlow CNVkit pipeline is part of a collection of computational workflows for tumor-normal pair somatic variant calling.
+The TronFlow Copy Number Caller pipeline is part of a collection of computational workflows for tumor-normal pair somatic variant calling.
 
 Find the documentation here [![Documentation Status](https://readthedocs.org/projects/tronflow-docs/badge/?version=latest)](https://tronflow-docs.readthedocs.io/en/latest/?badge=latest)
 
 
-This workflow implements the CNVkit (Talevich, 2016) somatic copy number calling over tumor-normal pairs.
-It reuses the modular Nextflow implementation of CNVkit from NF-core (Ewels, 2020).
+This workflow implements both the CNVkit (Talevich, 2016) and Sequenza (Favero, 2015) somatic copy number calling over tumor-normal pairs.
+It reuses the modular Nextflow implementation of CNVkit and Sequenza from NF-core (Ewels, 2020).
 
 
 ## How to run it
@@ -47,17 +47,21 @@ Optional input:
     * output: the output folder
     * cpus: number of reserved CPUs
     * memory: amount of reserved memory
+    * skip_sequenza: flag to skip sequenza CN calling
+    * skip_cnvkit: flag to skip cnvkit CN calling
 
 Output:
-    * *.antitarget.bed
-    * *.target.bed
-    * reference.cnn
-    * *.tumor.targetcoverage.cnn : binned tumor coverage in target region
-    * *.normal.targetcoverage.cnn : binned normal coverage in target region
-    * *.tumor.antitargetcoverage.cnn : binned tumor coverage in anti-target region
-    * *.normal.antitargetcoverage.cnn : binned normal coverage in ani-target region
-    * *.tumor.cnr : copy number ratios
-    * *.tumor.call.cns : copy number segments
+    * cnvkit/*.antitarget.bed
+    * cnvkit/*.target.bed
+    * cnvkit/reference.cnn
+    * cnvkit/*.tumor.targetcoverage.cnn : binned tumor coverage in target region
+    * cnvkit/*.normal.targetcoverage.cnn : binned normal coverage in target region
+    * cnvkit/*.tumor.antitargetcoverage.cnn : binned tumor coverage in anti-target region
+    * cnvkit/*.normal.antitargetcoverage.cnn : binned normal coverage in ani-target region
+    * cnvkit/*.tumor.cnr : copy number ratios
+    * cnvkit/*.tumor.call.cns : copy number segments
+    * sequenza/*_mutations.txt
+    * sequenza/*_segments.txt
 ```
 
 
