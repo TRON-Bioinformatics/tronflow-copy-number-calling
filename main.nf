@@ -1,8 +1,11 @@
 #!/usr/bin/env nextflow
 
+
 nextflow.enable.dsl = 2
 
 include { CNVKIT_BATCH } from './modules/modules/cnvkit/batch/main'
+include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/sequenzautils/gcwiggle/main'
+include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/sequenzautils/bam2seqz/main'
 
 params.help= false
 params.input_files = false
@@ -72,6 +75,10 @@ process MERGE_REPLICATES {
 
 workflow {
     MERGE_REPLICATES(input_files)
+
     // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
     CNVKIT_BATCH(MERGE_REPLICATES.out.merged_bams, params.reference, [], params.intervals, [])
+
+    SEQUENZAUTILS_GCWIGGLE([[id:'reference'], file(params.reference, checkIfExists: true)])
+    SEQUENZAUTILS_BAM2SEQZ(input_files, file(params.reference, checkIfExists: true), SEQUENZAUTILS_GCWIGGLE.wig[1])
 }
