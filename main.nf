@@ -75,10 +75,13 @@ process MERGE_REPLICATES {
 
 workflow {
     MERGE_REPLICATES(input_files)
+    merged_bams = MERGE_REPLICATES.out.merged_bams
 
     // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
-    CNVKIT_BATCH(MERGE_REPLICATES.out.merged_bams, params.reference, [], params.intervals, [])
+    CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [])
 
-    SEQUENZAUTILS_GCWIGGLE([[id:'reference'], file(params.reference, checkIfExists: true)])
-    SEQUENZAUTILS_BAM2SEQZ(input_files, file(params.reference, checkIfExists: true), SEQUENZAUTILS_GCWIGGLE.wig[1])
+    SEQUENZAUTILS_GCWIGGLE([[id:'reference'], params.reference])
+    wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
+
+    SEQUENZAUTILS_BAM2SEQZ(merged_bams, params.reference, wig)
 }
