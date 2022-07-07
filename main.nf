@@ -8,15 +8,6 @@ include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/sequenzautils/gcwiggl
 include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/sequenzautils/bam2seqz/main'
 include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
 
-params.help= false
-params.input_files = false
-params.reference = false
-params.intervals = false
-params.output = 'output'
-params.skip_sequenza = false
-params.skip_cnvkit = false
-params.VROOM_CONNECTION_SIZE = "500000000"
-
 
 def helpMessage() {
     log.info params.help_message
