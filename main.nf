@@ -15,6 +15,7 @@ params.intervals = false
 params.output = 'output'
 params.skip_sequenza = false
 params.skip_cnvkit = false
+params.VROOM_CONNECTION_SIZE = "500000000"
 
 
 def helpMessage() {

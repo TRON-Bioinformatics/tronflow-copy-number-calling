@@ -42,7 +42,7 @@ process SEQUENZA_R {
 
     library(sequenza)
 
-    Sys.setenv(VROOM_CONNECTION_SIZE = "50000000")
+    Sys.setenv(VROOM_CONNECTION_SIZE = "${params.VROOM_CONNECTION_SIZE}")
 
     seqz <- sequenza.extract(file="${seqz}", verbose = FALSE)
     #data.file <-  system.file("extdata", "example.seqz.txt.gz", package = "sequenza")

@@ -49,6 +49,8 @@ Optional input:
     * memory: amount of reserved memory
     * skip_sequenza: flag to skip sequenza CN calling
     * skip_cnvkit: flag to skip cnvkit CN calling
+    * VROOM_CONNECTION_SIZE: value for the environment variable VROOM_CONNECTION_SIZE which sometimes cause trouble with
+    sequenza (default: 500000000)
 
 Output:
     * cnvkit/*.antitarget.bed
