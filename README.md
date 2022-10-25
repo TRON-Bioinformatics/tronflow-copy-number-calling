@@ -1,6 +1,7 @@
 # TronFlow Copy Number caller
 
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/release/tron-bioinformatics/tronflow-copy-number-calling?sort=semver)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7248131.svg)](https://doi.org/10.5281/zenodo.7248131)
 [![Run tests](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/actions/workflows/automated_tests.yml/badge.svg?branch=master)](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/actions/workflows/automated_tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Powered by Nextflow](https://img.shields.io/badge/powered%20by-Nextflow-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://www.nextflow.io/)
