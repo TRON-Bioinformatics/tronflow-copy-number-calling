@@ -28,7 +28,7 @@ process SEQUENZAUTILS_SEQZBINNING {
 process SEQUENZA_R {
     tag "$meta.id"
 
-    conda (params.enable_conda ? "bioconda::r-sequenza=3.0.0" : null)
+    conda (params.enable_conda ? "conda-forge::r-base=4.2.2 bioconda::r-sequenza=3.0.0" : null)
 
     input:
     tuple val(meta), path(seqz)
@@ -42,7 +42,7 @@ process SEQUENZA_R {
 
     library(sequenza)
 
-    Sys.setenv(VROOM_CONNECTION_SIZE = "${params.VROOM_CONNECTION_SIZE}")
+    Sys.setenv(VROOM_CONNECTION_SIZE = "131072000")
 
     seqz <- sequenza.extract(file="${seqz}", verbose = FALSE)
     #data.file <-  system.file("extdata", "example.seqz.txt.gz", package = "sequenza")
