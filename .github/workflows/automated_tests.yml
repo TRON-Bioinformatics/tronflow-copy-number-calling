@@ -25,6 +25,8 @@ jobs:
         source "${HOME}/conda/etc/profile.d/mamba.sh"
         export PATH="${HOME}/conda/bin:${PATH}"
         echo $PATH
+        # this is a workaround for 
+        echo "use_lockfiles: false" >> ~/.mambarc
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
