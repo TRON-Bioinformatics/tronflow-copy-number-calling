@@ -28,9 +28,9 @@ jobs:
         # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
         echo "use_lockfiles: false" >> ~/.mambarc
         echo "channels:" >> ~/.mambarc
-        echo "  - bioconda" >> ~/.mambarc
-        echo "  - conda-forge" >> ~/.mambarc
         echo "  - defaults" >> ~/.mambarc
+        echo "  - conda-forge" >> ~/.mambarc
+        echo "  - bioconda" >> ~/.mambarc
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
