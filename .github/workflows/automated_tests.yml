@@ -25,8 +25,12 @@ jobs:
         source "${HOME}/conda/etc/profile.d/mamba.sh"
         export PATH="${HOME}/conda/bin:${PATH}"
         echo $PATH
-        # this is a workaround for 
+        # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
         echo "use_lockfiles: false" >> ~/.mambarc
+        echo "channels:" >> ~/.mambarc
+        echo "  - bioconda" >> ~/.mambarc
+        echo "  - conda-forge" >> ~/.mambarc
+        echo "  - defaults" >> ~/.mambarc
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
