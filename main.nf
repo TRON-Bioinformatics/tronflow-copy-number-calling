@@ -74,7 +74,7 @@ workflow {
 
     if (!params.skip_cnvkit) {
         // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
-        CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [])
+        CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [], false)
     }
 
     if (!params.skip_sequenza) {
