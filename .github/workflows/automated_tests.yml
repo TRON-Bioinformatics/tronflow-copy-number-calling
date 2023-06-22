@@ -14,10 +14,20 @@ jobs:
       with:
         distribution: 'zulu' # See 'Supported distributions' for available options
         java-version: '11'
-    - uses: conda-incubator/setup-miniconda@v2
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
+    - uses: mamba-org/setup-micromamba@v1
       with:
-        auto-update-conda: true
-        channels: defaults,conda-forge,bioconda,r
+        # persist on the same day.
+        cache-environment-key: environment-${{ steps.date.outputs.date }}
+        cache-downloads-key: downloads-${{ steps.date.outputs.date }}
+        condarc: |
+          channels:
+            - defaults
+            - conda-forge
+            - bioconda
+            - r
     - name: Install dependencies
       run: |
         apt-get update && apt-get --assume-yes install wget make procps software-properties-common
