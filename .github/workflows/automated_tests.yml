@@ -24,6 +24,7 @@ jobs:
         conda activate
         source "${HOME}/conda/etc/profile.d/mamba.sh"
         export PATH="${HOME}/conda/bin:${PATH}"
+        echo $PATH
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
@@ -32,4 +33,5 @@ jobs:
     #    key: ${{ runner.os }}-tronflow-cnvkit
     - name: Run tests
       run: |
+        echo $PATH
         make
