@@ -33,5 +33,6 @@ jobs:
     #    key: ${{ runner.os }}-tronflow-cnvkit
     - name: Run tests
       run: |
+        export PATH="${HOME}/conda/bin:${PATH}"
         echo $PATH
         make
