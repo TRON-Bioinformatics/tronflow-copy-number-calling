@@ -16,13 +16,14 @@ jobs:
         java-version: '11'
     - name: Install dependencies
       run: |
-        apt-get update && apt-get --assume-yes install wget make procps software-properties-common
+        apt-get -q update && apt-get -q --assume-yes install wget make procps software-properties-common
         wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
         wget -qO Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
         bash Mambaforge.sh -b -p "${HOME}/conda"
         source "${HOME}/conda/etc/profile.d/conda.sh"
         conda activate
         source "${HOME}/conda/etc/profile.d/mamba.sh"
+        export PATH="${HOME}/conda/bin:${PATH}"
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
