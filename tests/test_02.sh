@@ -3,7 +3,7 @@
 
 source tests/assert.sh
 output=output/test2
-echo -e "sample1\t"`pwd`"/test_data/TESTX_S1_L001.bam,"`pwd`"/test_data/TESTX_S1_L001.bam\t"`pwd`"/test_data/TESTX_S1_L003.bam,"`pwd`"/test_data/TESTX_S1_L003.bam" > test_data/test_input.txt
+echo -e "sample1\t"`pwd`"/test_data/tumor_WES.downsampled_0001.bam\t"`pwd`"/test_data/normal_WES.downsampled_0001.bam" > test_data/test_input.txt
 nextflow main.nf -profile test,mamba --output $output --input_files test_data/test_input.txt
 
 # CNVkit output
