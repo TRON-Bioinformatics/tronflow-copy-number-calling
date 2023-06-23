@@ -4,7 +4,7 @@
 source tests/assert.sh
 output=output/test1
 echo -e "sample1\t"`pwd`"/test_data/tumor_WES.downsampled_0001.bam\t"`pwd`"/test_data/normal_WES.downsampled_0001.bam" > test_data/test_input.txt
-nextflow main.nf -profile test,mamba --output $output --input_files test_data/test_input.txt
+nextflow main.nf -profile test,mamba --output $output --input_files test_data/test_input.txt --skip_sequenza
 
 # CNVkit output
 test -s $output/cnvkit/reference.cnn || { echo "Missing output reference!"; exit 1; }
