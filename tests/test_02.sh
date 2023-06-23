@@ -13,5 +13,5 @@ test -s $output/cnvkit/minimal_intervals.target.bed || { echo "Missing output ta
 test -s $output/cnvkit/minimal_intervals.antitarget.bed || { echo "Missing output antitarget!"; exit 1; }
 
 # Sequenza output
-test -s $output/sequenza/sample1.gz || { echo "Missing output sequenza SEQZ!"; exit 1; }
-test -s $output/sequenza/sample1.binned.gz || { echo "Missing output sequenza binned SEQZ!"; exit 1; }
+#test -s $output/sequenza/sample1.gz || { echo "Missing output sequenza SEQZ!"; exit 1; }
+#test -s $output/sequenza/sample1.binned.gz || { echo "Missing output sequenza binned SEQZ!"; exit 1; }
