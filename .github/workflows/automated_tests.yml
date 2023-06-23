@@ -14,20 +14,31 @@ jobs:
       with:
         distribution: 'zulu' # See 'Supported distributions' for available options
         java-version: '11'
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        auto-update-conda: true
-        channels: defaults,conda-forge,bioconda,r
     - name: Install dependencies
       run: |
-        apt-get update && apt-get --assume-yes install wget make procps software-properties-common
+        apt-get -q update && apt-get -q --assume-yes install wget make procps software-properties-common
         wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
-    - name: Cache conda environments
-      uses: actions/cache@v2
-      with:
-        path: |
-          /home/runner/work/tronflow-cnvkit/tronflow-cnvkit/work/conda
-        key: ${{ runner.os }}-tronflow-cnvkit
+        wget -qO Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+        bash Mambaforge.sh -b -p "${HOME}/conda"
+        source "${HOME}/conda/etc/profile.d/conda.sh"
+        conda activate
+        source "${HOME}/conda/etc/profile.d/mamba.sh"
+        export PATH="${HOME}/conda/bin:${PATH}"
+        echo $PATH
+        # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
+        echo "use_lockfiles: false" >> ~/.condarc
+        echo "channels:" >> ~/.condarc
+        echo "  - defaults" >> ~/.condarc
+        echo "  - conda-forge" >> ~/.condarc
+        echo "  - bioconda" >> ~/.condarc
+    #- name: Cache conda environments
+    #  uses: actions/cache@v2
+    #  with:
+    #    path: |
+    #      /home/runner/work/tronflow-cnvkit/tronflow-cnvkit/work/conda
+    #    key: ${{ runner.os }}-tronflow-cnvkit
     - name: Run tests
       run: |
+        export PATH="${HOME}/conda/bin:${PATH}"
+        echo $PATH
         make
