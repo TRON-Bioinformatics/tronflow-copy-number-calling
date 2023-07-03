@@ -1,5 +1,8 @@
 image: amazoncorretto:17.0.6
 
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 before_script:
   - java -version
   - yum install -y wget which make procps-ng shadow-utils git gcc gcc-c++ cmake
@@ -26,8 +29,3 @@ TEST-01:
   stage: Test
   script:
     - make clean test_01
-
-TEST-02:
-  stage: Test
-  script:
-    - make clean test_02

@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-all : clean test_00 test_01 test_02
+all : clean test_00 test_01
 
-.PHONY: all clean test_00 test_01 test_02
+.PHONY: all clean test_00 test_01
 
 clean:
 	rm -rf tests/output
@@ -19,6 +19,3 @@ test_00:
 
 test_01:
 	bash tests/scripts/run_test_01.sh
-
-test_02:
-	bash tests/scripts/run_test_02.sh

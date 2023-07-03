@@ -1,17 +1,56 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
-source tests/scripts/assert.sh
-output=tests/output/test01
-echo -e "sample1\t"`pwd`"tests/data/tumor_WES.downsampled_0001.bam\t"`pwd`"tests/data/normal_WES.downsampled_0001.bam" > tests/output/test01/test_input.tsv
-nextflow main.nf -profile test,mamba --output $output --input_files tests/output/test01/test_input.tsv --skip_sequenza
+### TEST-01: Check the pipeline when running with CNVkit 
 
-# CNVkit output
-test -s $output/cnvkit/reference.cnn || { echo "Missing output reference!"; exit 1; }
-test -s $output/cnvkit/sample1.tumor.call.cns || { echo "Missing output calls!"; exit 1; }
-test -s $output/cnvkit/minimal_intervals.target.bed || { echo "Missing output target!"; exit 1; }
-test -s $output/cnvkit/minimal_intervals.antitarget.bed || { echo "Missing output antitarget!"; exit 1; }
+echo "#######################################################################################"
+echo "# TEST-01: Check the pipeline when running with CNVkit"
+echo "#######################################################################################"
 
-# Sequenza output
-#test -s $output/sequenza/sample1.gz || { echo "Missing output sequenza SEQZ!"; exit 1; }
-#test -s $output/sequenza/sample1.binned.gz || { echo "Missing output sequenza binned SEQZ!"; exit 1; }
+## Set up environment
+
+# Set pipeline parameters
+
+test_id="TEST-01"
+input=`pwd`"/tests/output/${test_id}/input_${test_id}.tsv"
+output=`pwd`"/tests/output/${test_id}"
+cnv_tool="cnvkit"
+skip_sequenza=true
+
+# Create input file for pipeline
+
+sample_id_tum="sample1"
+
+mkdir -p $output
+
+echo -e "${sample_id_tum}\t"`pwd`"/tests/data/tumor_WES.downsampled_0001.bam\t"`pwd`"/tests/data/normal_WES.downsampled_0001.bam" > $input
+
+echo "Success: Input file created"
+
+## Execute pipeline
+
+nextflow run main.nf \
+	-profile mamba,test \
+	--input_files ${input} \
+	--output ${output} \
+	--skip_sequenza ${skip_sequenza}
+
+if [ $? -eq 1 ]
+then
+	echo "Fail: Pipeline execution failed with error exit status"
+	exit 1
+else
+	echo "Success: Pipeline execution completed"
+fi
+
+## Run output checks
+
+test -s ${output}/${cnv_tool}/reference.cnn || { echo "Error: Missing output file 'reference.cnn' for ${test_id}!"; exit 1; }
+test -s ${output}/${cnv_tool}/${sample_id_tum}.tumor.call.cns || { echo "Error: Missing output file '${sample_id_tum}.tumor.call.cns' for ${test_id}!"; exit 1; }
+test -s ${output}/${cnv_tool}/minimal_intervals.target.bed || { echo "Error: Missing output file 'minimal_intervals.target.bed' for ${test_id}!"; exit 1; }
+test -s ${output}/${cnv_tool}/minimal_intervals.antitarget.bed || { echo "Error: Missing output file 'minimal_intervals.antitarget.bed' for ${test_id}!"; exit 1; }
+
+echo "Success: Output files are existing and non-empty"
+
+echo "Success: Test completed"
+echo
