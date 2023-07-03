@@ -1,0 +1,33 @@
+image: amazoncorretto:17.0.6
+
+before_script:
+  - java -version
+  - yum install -y wget which make procps-ng shadow-utils git gcc gcc-c++ cmake
+  - wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
+  - which nextflow
+  - wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+  - mkdir /root/.conda
+  - bash Mambaforge-Linux-x86_64.sh -b -p /usr/local/bin/conda
+  - rm -f Mambaforge-Linux-x86_64.sh
+  - source /usr/local/bin/conda/etc/profile.d/conda.sh
+  - source /usr/local/bin/conda/etc/profile.d/mamba.sh
+  - which mamba 
+  - mamba --version
+
+stages:
+  - Test
+
+TEST-00:
+  stage: Test
+  script:
+    - make clean test_00
+
+TEST-01:
+  stage: Test
+  script:
+    - make clean test_01
+
+TEST-02:
+  stage: Test
+  script:
+    - make clean test_02

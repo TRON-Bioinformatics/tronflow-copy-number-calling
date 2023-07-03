@@ -1,5 +1,14 @@
-.idea
-venv
-work
-.nextflow*
-output
+# excluded directories
+.idea/
+.nextflow/
+output/
+tests/output/
+work/
+
+# excluded files
+.nextflow.log*
+dag*
+report*
+timeline*
+trace*
+
