@@ -1,3 +1,7 @@
 [submodule "modules"]
 	path = modules
 	url = https://github.com/tron-bioinformatics/modules
+[submodule "tests/test-datasets"]
+	path = tests/test-datasets
+	url = https://github.com/nf-core/test-datasets.git
+	branch = modules
