@@ -23,13 +23,11 @@ before_script:
   # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
   - echo "use_lockfiles:" >> ~/.condarc
   - echo "  - false" >> ~/.condarc
-  # - echo "channels:" >> ~/.condarc
+  - echo "channels:" >> ~/.condarc
   # - echo "  - defaults" >> ~/.condarc
-  # - echo "  - conda-forge" >> ~/.condarc
-  # - echo "  - bioconda" >> ~/.condarc
-  # - cat ~/.condarc
-  # - conda config --show channels
-
+  - echo "  - conda-forge" >> ~/.condarc
+  - echo "  - bioconda" >> ~/.condarc
+  - cat ~/.condarc
 
 stages:
   - Test
