@@ -4,10 +4,14 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
+  # check java version of docker image
   - java -version
+  # install system dependencies
   - yum install -y wget which make procps-ng shadow-utils git gcc gcc-c++ cmake
+  # install nextflow
   - wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
   - which nextflow
+  # install mamba
   - wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
   - mkdir /root/.conda
   - bash Mambaforge-Linux-x86_64.sh -b -p /usr/local/bin/conda
@@ -16,7 +20,8 @@ before_script:
   - source /usr/local/bin/conda/etc/profile.d/mamba.sh
   - which mamba 
   - mamba --version
-  - conda config --show channels
+  # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
+  - echo "use_lockfiles: false" >> ~/.condarc
   - conda config --add channels nodefaults
   - conda config --add channels bioconda
   - conda config --add channels conda-forge
