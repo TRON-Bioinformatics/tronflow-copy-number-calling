@@ -21,7 +21,7 @@ before_script:
   - which mamba 
   - mamba --version
   # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
-  - conda config --set use_lockfiles false
+  - echo "use_lockfiles:\nfalse" | conda config --stdin
   - conda config --add channels nodefaults
   - conda config --add channels bioconda
   - conda config --add channels conda-forge
