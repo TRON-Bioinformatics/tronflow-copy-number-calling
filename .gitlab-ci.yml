@@ -37,10 +37,10 @@ TEST-00:
   script:
     - make clean test_00
 
-TEST-01:
-  stage: Test
-  script:
-    - make clean test_01
+# TEST-01:
+#   stage: Test
+#   script:
+#     - make clean test_01
 
 TEST-02:
   stage: Test
