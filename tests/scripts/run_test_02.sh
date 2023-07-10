@@ -26,8 +26,6 @@ cnv_tool="sequenza"
 skip_cnvkit=true
 skip_sequenza=false
 
-test -s ${reference} || { echo "Error: Missing file '${reference}' for ${test_id}!"; exit 1; }
-
 # Create input file for pipeline
 
 sample_id_tum="sample1"
