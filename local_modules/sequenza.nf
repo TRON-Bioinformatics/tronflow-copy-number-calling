@@ -2,7 +2,7 @@
 process SEQUENZAUTILS_SEQZBINNING {
     tag "$meta.id"
 
-    conda (params.enable_conda ? "python=3.9 bioconda::sequenza-utils=3.0.0" : null)
+    conda (params.enable_conda ? "bioconda::sequenza-utils=3.0.0" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
         container "https://depot.galaxyproject.org/singularity/sequenza-utils:3.0.0--py38h6ed170a_2"
     } else {
@@ -18,6 +18,7 @@ process SEQUENZAUTILS_SEQZBINNING {
     script:
     def prefix = "${meta.id}"
     """
+    mamba list
     sequenza-utils \\
         seqz_binning \\
         --seqz $seqz \\
