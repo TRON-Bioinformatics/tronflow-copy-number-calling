@@ -1,15 +1,19 @@
-image: amazoncorretto:17.0.6
+image: ubuntu:20.04
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
-  # check java version of docker image
-  - java -version
   # install system dependencies
-  - yum install -y wget which make procps-ng shadow-utils git gcc gcc-c++ cmake
+  - apt-get --quiet update && apt-get --quiet --assume-yes install wget curl which make procps-ng shadow-utils git gcc gcc-c++ cmake
+  # install SDKMAN as SDK version manager
+  - curl -s "https://get.sdkman.io?rcupdate=false" | bash
+  - sdk version
+  # install java (amazon coretto release 17.0.6)
+  - sdk install java 17.0.6-amzn
+  - java -version
   # install nextflow
-  - wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
+  - wget -qO- https://get.nextflow.io | bash && mv nextflow /usr/local/bin/
   - which nextflow
   # install mamba
   - wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
