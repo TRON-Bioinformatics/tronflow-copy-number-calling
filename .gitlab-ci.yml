@@ -5,7 +5,7 @@ variables:
 
 before_script:
   # install system dependencies
-  - apt-get --quiet update && apt-get --quiet --assume-yes install curl unzip zip wget
+  - apt-get --quiet update && apt-get --quiet --assume-yes install curl unzip zip wget make
   # install SDKMAN as SDK version manager
   - curl -s "https://get.sdkman.io?rcupdate=false" | bash
   - source "/root/.sdkman/bin/sdkman-init.sh"
