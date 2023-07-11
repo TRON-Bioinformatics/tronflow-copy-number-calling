@@ -34,6 +34,31 @@ else {
     .set { input_files }
 }
 
+process CHECK_INPUTS {
+    debug true
+    tag "$meta.id"
+    label 'process_low'
+
+    input:
+    tuple val(meta), val(tumor), val(normal)
+    val(reference)
+
+    output:
+    tuple val(meta), path("finished.txt")
+
+    script:
+    """
+    echo "[ DEBUG ] Tumor"
+    md5sum $tumor
+    echo "[ DEBUG ] Normal"
+    md5sum $normal
+    echo "[ DEBUG ] Reference"
+    md5sum $reference
+    head -n 100 $reference
+    touch finished.txt
+    """
+}
+
 process MERGE_REPLICATES {
     tag "$meta.id"
     label 'process_low'
@@ -69,6 +94,7 @@ process MERGE_REPLICATES {
 }
 
 workflow {
+    CHECK_INPUTS(input_files, params.reference)
     MERGE_REPLICATES(input_files)
     merged_bams = MERGE_REPLICATES.out.merged_bams
 

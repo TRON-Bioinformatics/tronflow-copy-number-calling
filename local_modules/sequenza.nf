@@ -1,5 +1,6 @@
 
 process SEQUENZAUTILS_SEQZBINNING {
+    debug true
     tag "$meta.id"
 
     conda (params.enable_conda ? "bioconda::sequenza-utils=3.0.0" : null)
@@ -19,7 +20,7 @@ process SEQUENZAUTILS_SEQZBINNING {
     def prefix = "${meta.id}"
     """
     zcat $seqz | head
-    
+
     sequenza-utils \\
         seqz_binning \\
         --seqz $seqz \\
