@@ -8,6 +8,7 @@ before_script:
   - apt-get --quiet update && apt-get --quiet --assume-yes install curl unzip zip wget
   # install SDKMAN as SDK version manager
   - curl -s "https://get.sdkman.io?rcupdate=false" | bash
+  - source "/root/.sdkman/bin/sdkman-init.sh"
   - sdk version
   # install java (amazon coretto release 17.0.6)
   - sdk install java 17.0.6-amzn
