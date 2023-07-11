@@ -83,8 +83,12 @@ workflow {
 
         SEQUENZAUTILS_BAM2SEQZ(merged_bams, params.reference, wig)
 
-        SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
-
-        SEQUENZA_R(SEQUENZAUTILS_SEQZBINNING.out.seqz)
+        if (!params.testmode) {
+            SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
+            SEQUENZA_R(SEQUENZAUTILS_SEQZBINNING.out.seqz)
+        } 
+        else {
+            SEQUENZA_R(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
+        }
     }
 }

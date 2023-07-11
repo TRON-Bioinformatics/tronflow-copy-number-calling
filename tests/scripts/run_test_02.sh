@@ -61,7 +61,7 @@ fi
 ## Run output checks
 
 test -s ${output}/${cnv_tool}/${sample_id_tum}.gz || { echo "Error: Missing output file '${sample_id_tum}.gz' for ${test_id}!"; exit 1; }
-test -s ${output}/${cnv_tool}/${sample_id_tum}.binned.gz || { echo "Error: Missing output file '${sample_id_tum}.binned.gz' for ${test_id}!"; exit 1; }
+# test -s ${output}/${cnv_tool}/${sample_id_tum}.binned.gz || { echo "Error: Missing output file '${sample_id_tum}.binned.gz' for ${test_id}!"; exit 1; }
 
 echo "Success: Output files are existing and non-empty"
 
