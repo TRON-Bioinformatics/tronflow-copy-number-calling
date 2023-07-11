@@ -21,7 +21,6 @@ process SEQUENZAUTILS_SEQZBINNING {
     sequenza-utils \\
         seqz_binning \\
         --seqz $seqz \\
-        --window 1000 \\
         -o ${prefix}.binned.gz
     """
 }
