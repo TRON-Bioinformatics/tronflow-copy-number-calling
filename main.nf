@@ -5,7 +5,8 @@ nextflow.enable.dsl = 2
 
 include { CNVKIT_BATCH } from './modules/modules/nf-core/cnvkit/batch/main'
 include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/nf-core/sequenzautils/gcwiggle/main'
-include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
+// include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
+include { SEQUENZAUTILS_BAM2SEQZ } from './local_modules/sequenza'
 include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
 
 
@@ -32,31 +33,6 @@ else {
     .splitCsv(header: ['name', 'tumor_bam', 'normal_bam'], sep: "\t")
     .map{ row-> tuple([id: row.name], row.tumor_bam, row.normal_bam) }
     .set { input_files }
-}
-
-process CHECK_INPUTS {
-    debug true
-    tag "$meta.id"
-    label 'process_low'
-
-    input:
-    tuple val(meta), val(tumor), val(normal)
-    val(reference)
-
-    output:
-    tuple val(meta), path("finished.txt")
-
-    script:
-    """
-    echo "[ DEBUG ] Tumor"
-    md5sum $tumor
-    echo "[ DEBUG ] Normal"
-    md5sum $normal
-    echo "[ DEBUG ] Reference"
-    md5sum $reference
-    head -n 100 $reference
-    touch finished.txt
-    """
 }
 
 process MERGE_REPLICATES {
@@ -94,7 +70,6 @@ process MERGE_REPLICATES {
 }
 
 workflow {
-    CHECK_INPUTS(input_files, params.reference)
     MERGE_REPLICATES(input_files)
     merged_bams = MERGE_REPLICATES.out.merged_bams
 
