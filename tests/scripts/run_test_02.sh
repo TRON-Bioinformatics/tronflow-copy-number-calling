@@ -48,7 +48,6 @@ nextflow run main.nf \
 	--input_files ${input} \
 	--output ${output} \
     --reference ${reference} \
-    --intervals ${intervals} \
     --skip_cnvkit ${skip_cnvkit} \
 	--skip_sequenza ${skip_sequenza}
 
