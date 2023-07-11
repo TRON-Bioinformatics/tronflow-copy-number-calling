@@ -20,6 +20,7 @@ process SEQUENZAUTILS_SEQZBINNING {
     def prefix = "${meta.id}"
     """
     zcat $seqz | head
+    sleep 300
 
     sequenza-utils \\
         seqz_binning \\
