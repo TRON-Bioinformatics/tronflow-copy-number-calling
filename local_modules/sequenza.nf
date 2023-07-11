@@ -18,9 +18,12 @@ process SEQUENZAUTILS_SEQZBINNING {
     script:
     def prefix = "${meta.id}"
     """
+    zcat $seqz | head
+    
     sequenza-utils \\
         seqz_binning \\
         --seqz $seqz \\
+        --window 50 \\
         -o ${prefix}.binned.gz
     """
 }
