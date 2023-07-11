@@ -5,7 +5,7 @@ variables:
 
 before_script:
   # install system dependencies
-  #- apt-get --quiet update && apt-get --quiet --assume-yes install wget curl which make procps-ng shadow-utils git gcc gcc-c++ cmake
+  - apt-get --quiet update && apt-get --quiet --assume-yes install wget curl
   # install SDKMAN as SDK version manager
   - curl -s "https://get.sdkman.io?rcupdate=false" | bash
   - sdk version
