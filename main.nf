@@ -5,8 +5,7 @@ nextflow.enable.dsl = 2
 
 include { CNVKIT_BATCH } from './modules/modules/nf-core/cnvkit/batch/main'
 include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/nf-core/sequenzautils/gcwiggle/main'
-// include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
-include { SEQUENZAUTILS_BAM2SEQZ } from './local_modules/sequenza'
+include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
 include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
 
 
