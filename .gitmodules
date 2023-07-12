@@ -1,6 +1,6 @@
 [submodule "modules"]
 	path = modules
 	url = https://github.com/tron-bioinformatics/modules
-[submodule "tests/data"]
-	path = tests/data
+[submodule "tests/nf-core-test-datasets"]
+	path = tests/nf-core-test-datasets
 	url = https://github.com/TRON-Bioinformatics/nf-core-test-datasets.git
