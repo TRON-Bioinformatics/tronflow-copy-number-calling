@@ -15,9 +15,8 @@ test_id="TEST-02"
 input=`pwd`"/tests/output/${test_id}/input_${test_id}.tsv"
 output=`pwd`"/tests/output/${test_id}"
 reference=`pwd`"/tests/nf-core-test-datasets/data/genomics/homo_sapiens/genome/chr21/sequence/genome.fasta"
-cnv_tool="sequenza"
-skip_cnvkit=true
-skip_sequenza=false
+intervals=`pwd`"/tests/nf-core-test-datasets/data/genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed"
+tool="sequenza"
 
 # Create input file for pipeline
 
@@ -35,9 +34,9 @@ nextflow run main.nf \
 	-profile mamba,test \
 	--input_files ${input} \
 	--output ${output} \
-    --reference ${reference} \
-    --skip_cnvkit ${skip_cnvkit} \
-	--skip_sequenza ${skip_sequenza}
+	--reference ${reference} \
+	--intervals ${intervals} \
+	--tool ${tool}
 
 if [ $? -eq 1 ]
 then
@@ -49,8 +48,8 @@ fi
 
 ## Run output checks
 
-test -s ${output}/${cnv_tool}/${sample_id_tum}.gz || { echo "Error: Missing output file '${sample_id_tum}.gz' for ${test_id}!"; exit 1; }
-test -s ${output}/${cnv_tool}/${sample_id_tum}.binned.gz || { echo "Error: Missing output file '${sample_id_tum}.binned.gz' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}.gz || { echo "Error: Missing output file '${sample_id_tum}.gz' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}.binned.gz || { echo "Error: Missing output file '${sample_id_tum}.binned.gz' for ${test_id}!"; exit 1; }
 
 echo "Success: Output files are existing and non-empty"
 

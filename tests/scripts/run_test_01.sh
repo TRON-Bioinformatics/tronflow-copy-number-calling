@@ -16,9 +16,7 @@ input=`pwd`"/tests/output/${test_id}/input_${test_id}.tsv"
 output=`pwd`"/tests/output/${test_id}"
 reference=`pwd`"/tests/nf-core-test-datasets/data/genomics/homo_sapiens/genome/chr21/sequence/genome.fasta"
 intervals=`pwd`"/tests/nf-core-test-datasets/data/genomics/homo_sapiens/genome/chr21/sequence/multi_intervals.bed"
-cnv_tool="cnvkit"
-skip_cnvkit=false
-skip_sequenza=true
+tool="cnvkit"
 
 # Create input file for pipeline
 
@@ -36,10 +34,9 @@ nextflow run main.nf \
 	-profile mamba,test \
 	--input_files ${input} \
 	--output ${output} \
-    --reference ${reference} \
-    --intervals ${intervals} \
-    --skip_cnvkit ${skip_cnvkit} \
-	--skip_sequenza ${skip_sequenza}
+	--reference ${reference} \
+	--intervals ${intervals} \
+	--tool ${tool}
 
 if [ $? -eq 1 ]
 then
@@ -51,10 +48,10 @@ fi
 
 ## Run output checks
 
-test -s ${output}/${cnv_tool}/reference.cnn || { echo "Error: Missing output file 'reference.cnn' for ${test_id}!"; exit 1; }
-test -s ${output}/${cnv_tool}/${sample_id_tum}.tumor.call.cns || { echo "Error: Missing output file '${sample_id_tum}.tumor.call.cns' for ${test_id}!"; exit 1; }
-test -s ${output}/${cnv_tool}/multi_intervals.target.bed || { echo "Error: Missing output file 'multi_intervals.target.bed' for ${test_id}!"; exit 1; }
-test -s ${output}/${cnv_tool}/multi_intervals.antitarget.bed || { echo "Error: Missing output file 'multi_intervals.antitarget.bed' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/reference.cnn || { echo "Error: Missing output file 'reference.cnn' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}.tumor.call.cns || { echo "Error: Missing output file '${sample_id_tum}.tumor.call.cns' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/multi_intervals.target.bed || { echo "Error: Missing output file 'multi_intervals.target.bed' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/multi_intervals.antitarget.bed || { echo "Error: Missing output file 'multi_intervals.antitarget.bed' for ${test_id}!"; exit 1; }
 
 echo "Success: Output files are existing and non-empty"
 
