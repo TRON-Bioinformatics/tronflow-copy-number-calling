@@ -6,6 +6,7 @@ nextflow.enable.dsl = 2
 include { CNVKIT_BATCH } from './modules/modules/nf-core/cnvkit/batch/main'
 include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/nf-core/sequenzautils/gcwiggle/main'
 include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
+include { MERGE_REPLICATES } from './local_modules/merge_replicates'
 include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
 
 
@@ -23,7 +24,12 @@ if (!params.reference) {
     exit 1
 }
 
-if (! params.input_files) {
+if (!params.intervals) {
+    log.error "--intervals is required"
+    exit 1
+}
+
+if (!params.input_files) {
   exit 1, "--input_files is required!"
 }
 else {
@@ -32,40 +38,6 @@ else {
     .splitCsv(header: ['name', 'tumor_bam', 'normal_bam'], sep: "\t")
     .map{ row-> tuple([id: row.name], row.tumor_bam, row.normal_bam) }
     .set { input_files }
-}
-
-process MERGE_REPLICATES {
-    tag "$meta.id"
-    label 'process_low'
-
-    conda (params.enable_conda ? 'bioconda::samtools=1.15.1' : null)
-
-    input:
-    tuple val(meta), val(tumor), val(normal)
-
-    output:
-    tuple val(meta), path("${meta.id}.tumor.bam"), path("${meta.id}.normal.bam"), emit: merged_bams
-
-    script:
-    if (tumor.contains(',')) {
-        tumor_inputs = tumor.split(",").join(" ")
-        tumor_merge_cmd = "samtools merge ${meta.id}.tumor.bam ${tumor_inputs}"
-    }
-    else {
-        tumor_merge_cmd = "cp ${tumor} ${meta.id}.tumor.bam"
-    }
-
-    if (normal.contains(',')) {
-        normal_inputs = normal.split(",").join(" ")
-        normal_merge_cmd = "samtools merge ${meta.id}.normal.bam ${normal_inputs}"
-    }
-    else {
-        normal_merge_cmd = "cp ${normal} ${meta.id}.normal.bam"
-    }
-    """
-    ${tumor_merge_cmd}
-    ${normal_merge_cmd}
-    """
 }
 
 workflow {
