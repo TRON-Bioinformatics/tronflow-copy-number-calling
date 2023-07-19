@@ -31,7 +31,7 @@ echo "Success: Input file created"
 ## Execute pipeline
 
 nextflow run main.nf \
-	-profile mamba,test \
+	-profile test,mamba \
 	--input_files ${input} \
 	--output ${output} \
 	--reference ${reference} \
