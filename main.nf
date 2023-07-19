@@ -29,12 +29,12 @@ if (!params.intervals) {
     exit 1
 }
 
-if (!params.tool) {
-    log.error "--tool is required"
+if (!params.tools) {
+    log.error "--tools is required"
     exit 1
 }
 else {
-    params.toollist = params.tool?.split(',') as List
+    params.toolslist = params.tools?.split(',') as List
 }
 
 if (!params.input_files) {
@@ -52,12 +52,12 @@ workflow {
     MERGE_REPLICATES(input_files)
     merged_bams = MERGE_REPLICATES.out.merged_bams
 
-    if (params.toollist.contains('cnvkit')) {
+    if (params.toolslist.contains('cnvkit')) {
         // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
         CNVKIT_BATCH(merged_bams, params.reference, [], params.intervals, [], false)
     }
 
-    if (params.toollist.contains('sequenza')) {
+    if (params.toolslist.contains('sequenza')) {
         SEQUENZAUTILS_GCWIGGLE([[id:'reference'], params.reference])
         wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
 

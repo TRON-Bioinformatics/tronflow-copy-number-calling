@@ -36,7 +36,7 @@ nextflow run main.nf \
 	--output ${output} \
 	--reference ${reference} \
 	--intervals ${intervals} \
-	--tool ${tool}
+	--tools ${tool}
 
 if [ $? -eq 1 ]
 then
