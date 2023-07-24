@@ -1,0 +1,43 @@
+name: rsequenza
+description: rsequenza processes a seqz file to estimate copy number profiles
+keywords:
+  - rsequenza
+  - sequenza
+  - copy number
+tools:
+  - rsequenza:
+      description: rsequenza is a R package for analysis of genomic sequencing data from paired normal-tumor samples, including cellularity and ploidy estimation; mutation and copy number (allele-specific and total copy number) detection, quantification and visualization.
+      homepage: https://sequenzatools.bitbucket.io
+      documentation: https://bitbucket.org/sequenzatools/sequenza/src/master/README.md
+      doi: 10.1093/annonc/mdu479
+      licence: ["GPL-3.0-or-later"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqz:
+      type: file
+      description: Seqz file
+      pattern: "*.{seqz.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - seqz:
+      type: file
+      description: Seqz file
+      pattern: "*.{seqz.gz}"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@priesgo"
+  - "@JulianMohr"
+  

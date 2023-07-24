@@ -3,12 +3,12 @@
 
 nextflow.enable.dsl = 2
 
-include { CNVKIT_BATCH } from './modules/modules/nf-core/cnvkit/batch/main'
-include { SEQUENZAUTILS_GCWIGGLE } from './modules/modules/nf-core/sequenzautils/gcwiggle/main'
-include { SEQUENZAUTILS_BAM2SEQZ } from './modules/modules/nf-core/sequenzautils/bam2seqz/main'
+include { CNVKIT_BATCH } from './nf-core-modules/modules/nf-core/cnvkit/batch/main'
+include { SEQUENZAUTILS_GCWIGGLE } from './nf-core-modules/modules/nf-core/sequenzautils/gcwiggle/main'
+include { SEQUENZAUTILS_BAM2SEQZ } from './nf-core-modules/modules/nf-core/sequenzautils/bam2seqz/main'
 include { MERGE_REPLICATES } from './local_modules/merge_replicates'
-include { SEQUENZAUTILS_SEQZBINNING; SEQUENZA_R } from './local_modules/sequenza'
-
+include { SEQUENZAUTILS_SEQZBINNING } from './local_modules/sequenzautils/seqzbinning/main'
+include { R_SEQUENZA } from './local_modules/rsequenza/main'
 
 def helpMessage() {
     log.info params.help_message
@@ -65,6 +65,6 @@ workflow {
 
         SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
         
-        SEQUENZA_R(SEQUENZAUTILS_SEQZBINNING.out.seqz)
+        R_SEQUENZA(SEQUENZAUTILS_SEQZBINNING.out.seqz)
     }
 }
