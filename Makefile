@@ -5,6 +5,7 @@ all : clean test_00 test_01 test_02
 .PHONY: all clean test_00 test_01 test_02
 
 clean:
+	rm -rf output
 	rm -rf tests/output
 	rm -rf work
 	rm -f report*
