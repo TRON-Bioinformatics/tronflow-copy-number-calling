@@ -48,10 +48,10 @@ fi
 
 ## Run output checks
 
-test -s ${output}/${tool}/reference.cnn || { echo "Error: Missing output file 'reference.cnn' for ${test_id}!"; exit 1; }
-test -s ${output}/${tool}/${sample_id_tum}.tumor.call.cns || { echo "Error: Missing output file '${sample_id_tum}.tumor.call.cns' for ${test_id}!"; exit 1; }
-test -s ${output}/${tool}/multi_intervals.target.bed || { echo "Error: Missing output file 'multi_intervals.target.bed' for ${test_id}!"; exit 1; }
-test -s ${output}/${tool}/multi_intervals.antitarget.bed || { echo "Error: Missing output file 'multi_intervals.antitarget.bed' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}/reference.cnn || { echo "Error: Missing output file 'reference.cnn' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}/${sample_id_tum}.tumor.call.cns || { echo "Error: Missing output file '${sample_id_tum}.tumor.call.cns' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}/multi_intervals.target.bed || { echo "Error: Missing output file 'multi_intervals.target.bed' for ${test_id}!"; exit 1; }
+test -s ${output}/${tool}/${sample_id_tum}/multi_intervals.antitarget.bed || { echo "Error: Missing output file 'multi_intervals.antitarget.bed' for ${test_id}!"; exit 1; }
 
 echo "Success: Output files are existing and non-empty"
 
