@@ -16,7 +16,7 @@ jobs:
         apt-get --quiet update && apt-get --quiet --assume-yes install curl unzip zip wget make tree
         # install SDKMAN as SDK version manager
         curl -s "https://get.sdkman.io?rcupdate=false" | bash
-        source "/root/.sdkman/bin/sdkman-init.sh"
+        source "${HOME}/.sdkman/bin/sdkman-init.sh"
         sdk version
         # install java (amazon coretto release 17.0.6)
         sdk install java 17.0.6-amzn
@@ -26,7 +26,7 @@ jobs:
         which nextflow
         # install mamba
         wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
-        mkdir /root/.conda
+        mkdir "${HOME}/.conda"
         bash Mambaforge-Linux-x86_64.sh -b -p /usr/local/bin/conda
         rm -f Mambaforge-Linux-x86_64.sh
         source /usr/local/bin/conda/etc/profile.d/conda.sh
