@@ -10,27 +10,37 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: 'true'
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
-        java-version: '11'
     - name: Install dependencies
       run: |
-        apt-get -q update && apt-get -q --assume-yes install wget make procps software-properties-common
-        wget -qO- https://get.nextflow.io | bash && cp nextflow /usr/local/bin/nextflow
-        wget -qO Mambaforge.sh  "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
-        bash Mambaforge.sh -b -p "${HOME}/conda"
-        source "${HOME}/conda/etc/profile.d/conda.sh"
-        conda activate
-        source "${HOME}/conda/etc/profile.d/mamba.sh"
-        export PATH="${HOME}/conda/bin:${PATH}"
-        echo $PATH
+        # install system dependencies
+        apt-get --quiet update && apt-get --quiet --assume-yes install curl unzip zip wget make tree
+        # install SDKMAN as SDK version manager
+        curl -s "https://get.sdkman.io?rcupdate=false" | bash
+        source "/root/.sdkman/bin/sdkman-init.sh"
+        sdk version
+        # install java (amazon coretto release 17.0.6)
+        sdk install java 17.0.6-amzn
+        java -version
+        # install nextflow
+        wget -qO- https://get.nextflow.io | bash && mv nextflow /usr/local/bin/
+        which nextflow
+        # install mamba
+        wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+        mkdir /root/.conda
+        bash Mambaforge-Linux-x86_64.sh -b -p /usr/local/bin/conda
+        rm -f Mambaforge-Linux-x86_64.sh
+        source /usr/local/bin/conda/etc/profile.d/conda.sh
+        source /usr/local/bin/conda/etc/profile.d/mamba.sh
+        which mamba 
+        mamba --version
         # this is a workaround for https://github.com/mamba-org/mamba/issues/1993
-        echo "use_lockfiles: false" >> ~/.condarc
+        echo "use_lockfiles:" >> ~/.condarc
+        echo "  - false" >> ~/.condarc
         echo "channels:" >> ~/.condarc
         echo "  - defaults" >> ~/.condarc
         echo "  - conda-forge" >> ~/.condarc
         echo "  - bioconda" >> ~/.condarc
+        cat ~/.condarc
     #- name: Cache conda environments
     #  uses: actions/cache@v2
     #  with:
@@ -39,6 +49,6 @@ jobs:
     #    key: ${{ runner.os }}-tronflow-cnvkit
     - name: Run tests
       run: |
-        export PATH="${HOME}/conda/bin:${PATH}"
+        export PATH="/usr/local/bin/conda/bin:${PATH}"
         echo $PATH
         make
