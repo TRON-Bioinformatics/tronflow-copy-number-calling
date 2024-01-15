@@ -53,18 +53,16 @@ sample_2<TAB>/path/to/sample_2_tumor_1.bam,/path/to/sample_2_tumor_2.bam<TAB>/pa
 
 ### How to run the pipeline 
 
-Option 1: Run it from GitLab as follows...
+Option 1: Run it from GitHub as follows...
 
 ```bash
-$ nextflow run -hub <YOUR_GITLAB_ID> tron/tronflow-copy-number-calling -r <RELEASE|BRANCH> -profile conda --input_files <YOUR_INPUT_FILE> --reference <YOUR_REFERENCE_FASTA> --intervals <YOUR_TARGET_REGIONS_BED>
+$ nextflow run tron-bioinformatics/tronflow-copy-number-calling -r <RELEASE|BRANCH> -profile conda --input_files <YOUR_INPUT_FILE> --reference <YOUR_REFERENCE_FASTA> --intervals <YOUR_TARGET_REGIONS_BED> --tools cnvkit,sequenza
 ```
-
-_NOTE: You will need to add your account configuration to Nextflow's SCM config file (`~/.nextflow/scm`) to access the private GitLab repository. For further information, please refer to [this](http://tron-wiki/pages/viewpage.action?spaceKey=COMPMED&title=How+to+use+nextflow+in+tronland#Howtousenextflowintronland-UseTronGitlabasasourceofworkflows) Wiki page._
 
 Option 2: Download the project and run it as follows...
 
 ```bash
-$ nextflow run main.nf -profile conda --input_files <YOUR_INPUT_FILE> --reference <YOUR_REFERENCE_FASTA> --intervals <YOUR_TARGET_REGIONS_BED>
+$ nextflow run main.nf -profile conda --input_files <YOUR_INPUT_FILE> --reference <YOUR_REFERENCE_FASTA> --intervals <YOUR_TARGET_REGIONS_BED> --tools cnvkit,sequenza
 ```
 
 See help message for all of the available options when running the pipeline: 
@@ -77,7 +75,7 @@ TronFlow Copy Number Calling <REVISION>
 Nextflow pipeline for copy number calling using different tools
 
 Usage:
-    nextflow run main.nf -profile conda --input_files input_files.tsv --reference reference.fasta --intervals target_region.bed
+    nextflow run main.nf -profile conda --input_files input_files.tsv --reference reference.fasta --intervals target_region.bed --tools cnvkit,sequenza
 
 Input:
     * input_files: the path to a tab-separated values file containing in each row the sample name, tumor bam and normal bam
@@ -93,7 +91,7 @@ Optional input:
     * output: the folder where to publish output (default: output)
     * VROOM_CONNECTION_SIZE: value for the environment variable VROOM_CONNECTION_SIZE which sometimes causes trouble with sequenza (default: 500000000)
     * cpus: the number of CPUs used by each job (default: 1)
-    * memory: the ammount of memory used by each job (default: 4g)
+    * memory: the amount of memory used by each job (default: 4g)
 
 Output:
     CNVkit:  
@@ -130,7 +128,7 @@ Output:
 
 ## Pipeline output 
 
-TBD
+More details will be provided soon...
 
 ## Current limitations 
 
@@ -146,7 +144,7 @@ Features that will be implemented in the future are listed here:
 
 ## Authors & Acknowledgements 
 
-The TronFlow Copy Number Calling pipeline was originally developed by Pablo Riesgo-Ferreiro at [TRON - Translational Oncology at the Medical Center of the Johannes Gutenberg University Mainz gGmbH (non-profit)](https://tron-mainz.de/). Julian T. Mohr, also at TRON, later joined the project and helped with further development and integration of additional CNV calling tools. Furthermore, Jonas Ibn-Salem, also at TRON, supported the project. 
+The TronFlow Copy Number Calling pipeline was originally developed by Pablo Riesgo-Ferreiro at [TRON - Translational Oncology at the Medical Center of the Johannes Gutenberg University Mainz gGmbH (non-profit)](https://tron-mainz.de/). Julian T. Mohr, also at TRON, later joined the project and helped with further development and integration of additional CNV calling tools. Furthermore, Jonas Ibn-Salem and Matthias Peter, also at TRON, supported the project. 
 
 Maintenance is now lead by Pablo Riesgo-Ferreiro and Julian T. Mohr. 
 
@@ -164,7 +162,7 @@ We thank the following people for their assistance and support in the developmen
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](CONTRIBUTING.md). 
 
-Please report issues using the [issue tracker of GitLab](https://gitlab.rlp.net/tron/tronflow-copy-number-calling/-/issues). 
+Please report issues using the [issue tracker of GitHub](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/issues). 
 
 ## Citations 
 
