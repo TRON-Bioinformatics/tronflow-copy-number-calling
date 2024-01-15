@@ -11,14 +11,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - [Fork of nf-core/test-datasets repository](https://github.com/TRON-Bioinformatics/nf-core-test-datasets) as a submodule (`tests/nf-core-test-datasets`) to introduce new test dataset provided by nf-core  
 - New `--tools` flag with which the tool(s) to be run during pipeline execution can be specified  
 - This `CHANGELOG.md` file and documention on old releases as well as recent development  
-- `CITATIONS.md` file with citations of all relevant software tools so far  
+- `CITATIONS.md` file with citations of all relevant software tools so far
+- Support for usage of Singularity containers in `nextflow.config` (not stable and not documented yet)  
 
 ### Changed 
 
-- Copy git repository from [GitHub](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling) to [GitLab](https://gitlab.rlp.net/tron/tronflow-copy-number-calling) and continue development there  
-- Refactor tests for GitLab CI environment  
+- Refactor automated tests  
 - Extract `MERGE_REPLICATES` process from `main.nf` and store it in an individual local module at `local_modules/merge_replicates.nf`  
 - Restructure `nextflow.config` based on nf-core's best practices (see [nf-core/sarek](https://github.com/nf-core/sarek))  
+- Establish basic config and test config as standalone config files in `conf/` directory and separate these config parameters from `nextflow.config`  
+- Refactor local modules in `local_modules/` directory based on [nf-core/modules](https://github.com/nf-core/modules) implementation  
+- Replace `MERGE_REPLICATES` process by [nf-core module SAMTOOLS_MERGE](https://github.com/nf-core/modules/tree/master/modules/nf-core/samtools/merge) and integrate this module into pipeline  
 - Update time span in `LICENSE` file  
 
 ### Fixed 
