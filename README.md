@@ -70,7 +70,11 @@ See help message for all of the available options when running the pipeline:
 ```
 $ nextflow run main.nf --help
 
-TronFlow Copy Number Calling <REVISION>
+TronFlow Copy Number Calling <VERSION>
+
+Author: <AUTHORS>
+DOI: <DOI>
+GitHub: https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling
 
 Nextflow pipeline for copy number calling using different tools
 
