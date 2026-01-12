@@ -112,7 +112,6 @@ workflow {
 
     ch_meta_tumor_normal = prepared_tumor_bams
         .join(prepared_normal_bams, by: [0])
-        .map { meta, tumor_bam, normal_bam -> tuple(meta, tumor_bam, normal_bam) }
 
     ch_meta_tumor_normal.into { ch_meta_tumor_normal_cnvkit; ch_meta_tumor_normal_sequenza }
 
