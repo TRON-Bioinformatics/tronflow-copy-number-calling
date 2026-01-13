@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed 
 
 - Automated test for sequenza by [addind a samtools dependency to module for sequenza](https://github.com/TRON-Bioinformatics/modules/commit/b7c2f13956aa75f9ae2d0433825c9f199c02722e) (in [fork of nf-core/modules](https://github.com/TRON-Bioinformatics/modules))  
+- Correct Sequenza bam ordering so normal is processed as reference ([#4](https://github.com/TRON-Bioinformatics/tronflow-copy-number-calling/issues/4))  
 
 ### Removed 
 
