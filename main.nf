@@ -110,9 +110,14 @@ workflow {
             [fmeta, bam]
         }
 
-    ch_meta_tumor_normal = prepared_tumor_bams
-        .join(prepared_normal_bams, by: [0])
-
+    prepared_tumor_bams
+        .join(prepared_normal_bams, by: 0)
+        .multiMap { item ->
+            [
+                ch_meta_tumor_normal         : item,
+                ch_meta_tumor_normal_sequenza: item
+            ]
+        }
     if (params.toolslist.contains('cnvkit')) {
         // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
         CNVKIT_BATCH(
@@ -126,10 +131,14 @@ workflow {
     }
 
     if (params.toolslist.contains('sequenza')) {
+
+        // change order of normal and tumor bams for sequenza input
+        ch_meta_normal_tumor = ch_meta_tumor_normal_sequenza.map { meta, tumor_bam, normal_bam -> tuple(meta, normal_bam, tumor_bam) }
+
         SEQUENZAUTILS_GCWIGGLE([[id:'reference'], params.reference])
         wig = SEQUENZAUTILS_GCWIGGLE.out.wig.map { it[1] }
 
-        SEQUENZAUTILS_BAM2SEQZ(ch_meta_tumor_normal, params.reference, wig)
+        SEQUENZAUTILS_BAM2SEQZ(ch_meta_normal_tumor, params.reference, wig)
 
         SEQUENZAUTILS_SEQZBINNING(SEQUENZAUTILS_BAM2SEQZ.out.seqz)
         

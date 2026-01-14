@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v2
@@ -25,10 +25,10 @@ jobs:
         wget -qO- https://get.nextflow.io | bash && mv nextflow /usr/local/bin/
         which nextflow
         # install mamba
-        wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
+        wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
         mkdir "${HOME}/.conda"
-        bash Mambaforge-Linux-x86_64.sh -b -p /usr/local/bin/conda
-        rm -f Mambaforge-Linux-x86_64.sh
+        bash Miniforge3-Linux-x86_64.sh -b -p /usr/local/bin/conda
+        rm -f Miniforge3-Linux-x86_64.sh
         source /usr/local/bin/conda/etc/profile.d/conda.sh
         source /usr/local/bin/conda/etc/profile.d/mamba.sh
         which mamba 
