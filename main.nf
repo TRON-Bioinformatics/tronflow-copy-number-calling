@@ -112,7 +112,12 @@ workflow {
 
     prepared_tumor_bams
         .join(prepared_normal_bams, by: 0)
-        .into { ch_meta_tumor_normal; ch_meta_tumor_normal_sequenza }
+        .multiMap { item ->
+            [
+                ch_meta_tumor_normal         : item,
+                ch_meta_tumor_normal_sequenza: item
+            ]
+        }
     if (params.toolslist.contains('cnvkit')) {
         // NOTE: it does not provide fasta.fai or CNVkit reference, but these are created every time
         CNVKIT_BATCH(
